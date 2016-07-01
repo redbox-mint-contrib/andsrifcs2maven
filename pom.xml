@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~ * Copyright (C) 2016 Queensland Cyber Infrastructure Foundation (http://www.qcif.edu.au/)
+  ~ *
+  ~ *   This program is free software: you can redistribute it and/or modify
+  ~ *   it under the terms of the GNU General Public License as published by
+  ~ *   the Free Software Foundation; either version 2 of the License, or
+  ~ *   (at your option) any later version.
+  ~ *
+  ~ *   This program is distributed in the hope that it will be useful,
+  ~ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ *   GNU General Public License for more details.
+  ~ *
+  ~ *   You should have received a copy of the GNU General Public License along
+  ~ *   with this program; if not, write to the Free Software Foundation, Inc.,
+  ~ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  ~ */
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>au.com.redboxresearchdata.rifcs</groupId>
+    <artifactId>andsrifcs2maven</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <name>ands-rifcs-api</name>
+    <packaging>pom</packaging>
+    <properties>
+        <java.version>1.7</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <ands.jar.directory>../ANDS-RIFCS-API/lib</ands.jar.directory>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <property name="compile_classpath"
+                                          refid="maven.compile.classpath"/>
+                                <copy todir="${project.build.outputDirectory}" overwrite="true">
+                                    <fileset dir="${ands.jar.directory}"/>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>org.ands</groupId>
+                            <artifactId>rifcs</artifactId>
+                            <version>0.1-SNAPSHOT</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <file>${project.build.outputDirectory}/rifcs-api.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
