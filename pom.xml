@@ -160,11 +160,13 @@
             </plugin>
         </plugins>
     </build>
-    <repository>
-        <id>redbox-nexus-snapshots</id>
-        <name>Redbox Nexus Snapshots</name>
-        <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots</url>
-    </repository>-->
+    <repositories>
+        <repository>
+            <id>redbox-nexus-snapshots</id>
+            <name>Redbox Nexus Snapshots</name>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
     <distributionManagement>
         <snapshotRepository>
             <id>redbox-nexus-snapshots</id>
