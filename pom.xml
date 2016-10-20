@@ -152,7 +152,7 @@
                             <version>0.1-SNAPSHOT</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <url>http://dev.redboxresearchdata.com.au/nexus/content/groups/public/</url>
+                            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots</url>
                             <file>${project.build.directory}/rifcs-api.jar</file>
                         </configuration>
                     </execution>
@@ -160,6 +160,11 @@
             </plugin>
         </plugins>
     </build>
+    <repository>
+        <id>redbox-nexus-snapshots</id>
+        <name>Redbox Nexus Snapshots</name>
+        <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots</url>
+    </repository>-->
     <distributionManagement>
         <snapshotRepository>
             <id>redbox-nexus-snapshots</id>
