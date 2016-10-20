@@ -4,7 +4,7 @@ services:
 - docker
 before_install:
 - mkdir /tmp/build
-- docker pull qcifengineering/redbox-builder
+- docker pull qcifengineering/redbox-ant-builder
 - docker run -v /tmp/build:/build -e "CLONEPATH=https://github.com/redbox-mint-contrib/andsrifcs2maven.git"
   qcifengineering/redbox-builder
 install: true
