@@ -6,7 +6,7 @@ before_install:
 - mkdir /tmp/build
 - docker pull qcifengineering/redbox-ant-builder
 - docker run -v /tmp/build:/build -e "CLONEPATH=https://github.com/redbox-mint-contrib/andsrifcs2maven.git"
-  qcifengineering/redbox-builder
+  qcifengineering/redbox-ant-builder
 install: true
 script: true
 after_success:
