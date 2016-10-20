@@ -107,8 +107,6 @@
                             <tasks>
                                 <property name="compile_classpath"
                                           refid="maven.compile.classpath"/>
-                                <property name="ANT_OPTS"
-                                          value="-Dfile.encoding=${project.build.sourceEncoding}"/>
                                 <copy todir="${project.build.directory}" overwrite="true">
                                     <fileset dir="${project.build.directory}/ANDS-RIFCS-API/lib"/>
                                 </copy>
