@@ -32,7 +32,6 @@
     <properties>
         <java.version>1.7</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ands.jar.directory>../ANDS-RIFCS-API/lib</ands.jar.directory>
     </properties>
     <build>
         <plugins>
@@ -47,10 +46,47 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <id>generate ANDS sources</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>git</executable>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+                            <arguments>
+                                <argument>clone</argument>
+                                <argument>https://github.com/au-research/ANDS-RIFCS-API.git</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <id>compile and package ANDS sources</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>ant</executable>
+                            <workingDirectory>${project.build.directory}/ANDS-RIFCS-API</workingDirectory>
+                            <arguments>
+                                <argument>build_jar</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
+                        <id>process ANDS sources</id>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -58,8 +94,21 @@
                             <tasks>
                                 <property name="compile_classpath"
                                           refid="maven.compile.classpath"/>
-                                <copy todir="${project.build.outputDirectory}" overwrite="true">
-                                    <fileset dir="${ands.jar.directory}"/>
+                                <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/lib"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <property name="compile_classpath"
+                                          refid="maven.compile.classpath"/>
+                                <copy todir="${project.build.directory}" overwrite="true">
+                                    <fileset dir="${project.build.directory}/ANDS-RIFCS-API/lib"/>
                                 </copy>
                             </tasks>
                         </configuration>
@@ -82,11 +131,45 @@
                             <version>0.1-SNAPSHOT</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <file>${project.build.outputDirectory}/rifcs-api.jar</file>
+                            <file>${project.build.directory}/rifcs-api.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>org.ands</groupId>
+                            <artifactId>rifcs</artifactId>
+                            <version>0.1-SNAPSHOT</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots</url>
+                            <file>${project.build.directory}/rifcs-api.jar</file>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>redbox-nexus-snapshots</id>
+            <name>Redbox Nexus Snapshots</name>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>redbox-nexus-releases</id>
+            <name>Redbox Nexus Releases</name>
+            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 </project>
