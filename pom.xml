@@ -24,7 +24,7 @@
 
     <groupId>au.com.redboxresearchdata.rifcs</groupId>
     <artifactId>andsrifcs2maven</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>ands-rifcs-api</name>
     <packaging>pom</packaging>
     <properties>
