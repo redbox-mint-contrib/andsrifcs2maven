@@ -19,14 +19,12 @@
   ~ */
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>au.com.redboxresearchdata.rifcs</groupId>
     <artifactId>andsrifcs2maven</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <name>ands-rifcs-api</name>
     <packaging>pom</packaging>
     <properties>
@@ -94,10 +92,9 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <property name="compile_classpath"
-                                          refid="maven.compile.classpath"/>
-                                <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/lib"/>
-                                <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/build/classes"/>
+                                <property name="compile_classpath" refid="maven.compile.classpath" />
+                                <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/lib" />
+                                <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/build/classes" />
                             </tasks>
                         </configuration>
                     </execution>
@@ -109,21 +106,16 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <javac srcdir="${project.build.directory}/ANDS-RIFCS-API/src"
-                                       encoding="UTF8"
-                                       fork="yes"
-                                       destdir="${project.build.directory}/ANDS-RIFCS-API/build/classes"
-                                       debug="on" deprecation="on">
-                                    <include name="**/*.java"/>
+                                <javac srcdir="${project.build.directory}/ANDS-RIFCS-API/src" encoding="UTF8" fork="yes" destdir="${project.build.directory}/ANDS-RIFCS-API/build/classes" debug="on" deprecation="on">
+                                    <include name="**/*.java" />
                                     <classpath>
-                                        <pathelement path="${project.build.directory}/ANDS-RIFCS-API/build/classes"/>
+                                        <pathelement path="${project.build.directory}/ANDS-RIFCS-API/build/classes" />
                                         <fileset dir="${project.build.directory}/ANDS-RIFCS-API/lib">
-                                            <include name="**/*.jar"/>
+                                            <include name="**/*.jar" />
                                         </fileset>
                                     </classpath>
                                 </javac>
-                                <jar jarfile="${project.build.directory}/ANDS-RIFCS-API/lib/rifcs-api.jar"
-                                     basedir="${project.build.directory}/ANDS-RIFCS-API/build/classes"/>
+                                <jar jarfile="${project.build.directory}/ANDS-RIFCS-API/lib/rifcs-api.jar" basedir="${project.build.directory}/ANDS-RIFCS-API/build/classes" />
                             </tasks>
                         </configuration>
                     </execution>
@@ -134,10 +126,9 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <property name="compile_classpath"
-                                          refid="maven.compile.classpath"/>
+                                <property name="compile_classpath" refid="maven.compile.classpath" />
                                 <copy todir="${project.build.directory}" overwrite="true">
-                                    <fileset dir="${project.build.directory}/ANDS-RIFCS-API/lib"/>
+                                    <fileset dir="${project.build.directory}/ANDS-RIFCS-API/lib" />
                                 </copy>
                             </tasks>
                         </configuration>
