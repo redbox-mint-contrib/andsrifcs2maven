@@ -51,6 +51,22 @@
                 <version>1.5.0</version>
                 <executions>
                     <execution>
+                        <phase>initialize</phase>
+                        <id>clean ANDS sources</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>rm</executable>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+                            <arguments>
+                                <argument>-R</argument>
+                                <argument>-f</argument>
+                                <argument>ANDS-RIFCS-API</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <phase>generate-sources</phase>
                         <id>generate ANDS sources</id>
                         <goals>
@@ -93,7 +109,6 @@
                         </goals>
                         <configuration>
                             <tasks>
-
                                 <javac srcdir="${project.build.directory}/ANDS-RIFCS-API/src"
                                        encoding="UTF8"
                                        fork="yes"
@@ -193,3 +208,5 @@
 	<tag>HEAD</tag>
    </scm>
 </project>
+
+
