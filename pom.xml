@@ -65,20 +65,6 @@
                             </arguments>
                         </configuration>
                     </execution>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <id>compile and package ANDS sources</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>ant</executable>
-                            <workingDirectory>${project.build.directory}/ANDS-RIFCS-API</workingDirectory>
-                            <arguments>
-                                <argument>build_jar</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -95,6 +81,34 @@
                                 <property name="compile_classpath"
                                           refid="maven.compile.classpath"/>
                                 <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/lib"/>
+                                <mkdir dir="${project.build.directory}/ANDS-RIFCS-API/build/classes"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>compile and package ANDS sources</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+
+                                <javac srcdir="${project.build.directory}/ANDS-RIFCS-API/src"
+                                       encoding="UTF8"
+                                       fork="yes"
+                                       destdir="${project.build.directory}/ANDS-RIFCS-API/build/classes"
+                                       debug="on" deprecation="on">
+                                    <include name="**/*.java"/>
+                                    <classpath>
+                                        <pathelement path="${project.build.directory}/ANDS-RIFCS-API/build/classes"/>
+                                        <fileset dir="${project.build.directory}/ANDS-RIFCS-API/lib">
+                                            <include name="**/*.jar"/>
+                                        </fileset>
+                                    </classpath>
+                                </javac>
+                                <jar jarfile="${project.build.directory}/ANDS-RIFCS-API/lib/rifcs-api.jar"
+                                     basedir="${project.build.directory}/ANDS-RIFCS-API/build/classes"/>
                             </tasks>
                         </configuration>
                     </execution>
