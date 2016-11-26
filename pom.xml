@@ -142,7 +142,7 @@
                         <configuration>
                             <groupId>org.ands</groupId>
                             <artifactId>rifcs</artifactId>
-                            <version>0.1-SNAPSHOT</version>
+                            <version>0.1</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
                             <file>${project.build.directory}/rifcs-api.jar</file>
@@ -163,10 +163,10 @@
                         <configuration>
                             <groupId>org.ands</groupId>
                             <artifactId>rifcs</artifactId>
-                            <version>0.1-SNAPSHOT</version>
+                            <version>0.1</version>
                             <packaging>jar</packaging>
                             <generatePom>true</generatePom>
-                            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/snapshots</url>
+                            <url>http://dev.redboxresearchdata.com.au/nexus/content/repositories/releases</url>
                             <file>${project.build.directory}/rifcs-api.jar</file>
                         </configuration>
                     </execution>
